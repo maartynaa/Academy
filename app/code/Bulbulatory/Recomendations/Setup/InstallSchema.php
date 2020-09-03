@@ -6,6 +6,7 @@ use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Framework\DB\Ddl\Table;
+use Magento\Framework\DB\Adapter\AdapterInterface;
 
 
 class InstallSchema implements InstallSchemaInterface
@@ -62,21 +63,27 @@ class InstallSchema implements InstallSchemaInterface
 					'status',
 					Table::TYPE_BOOLEAN,
 					null,
-					['nullable' => false],
+					[
+						'nullable' => false,
+						'default' => 0
+					],
 					'Recommendation status'
                 )
                 ->addColumn(
 					'created_at',
-					Table::TYPE_DATETIME,
+					Table::TYPE_TIMESTAMP,
 					null,
-					['nullable' => false],
+					[
+						'nullable' => false,
+						'default' => Table::TIMESTAMP_INIT
+					],
 					'Creation date'
                 )
                 ->addColumn(
 					'confirmed_at',
-					Table::TYPE_DATETIME,
+					Table::TYPE_TIMESTAMP,
 					null,
-					['nullable' => false],
+					[],
 					'Confirmation date'
 				)
 				->addForeignKey(
@@ -91,7 +98,15 @@ class InstallSchema implements InstallSchemaInterface
 					'entity_id',
 					Table::ACTION_CASCADE
 				)
-				
+				->addIndex(
+					$installer->getIdxName(
+						'bulbulatory_recomendations',
+						['hash'],
+						AdapterInterface::INDEX_TYPE_UNIQUE
+					),
+					['hash'],
+					['type' => AdapterInterface::INDEX_TYPE_UNIQUE]
+				)
 				->setComment('Bulbulatory Recommendations Table');
 			$installer->getConnection()->createTable($table);
 		}
