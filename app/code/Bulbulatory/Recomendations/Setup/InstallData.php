@@ -22,16 +22,13 @@ class InstallData implements InstallDataInterface
                 'recommender_id' => 2,
                 'e-mail' => 'jkowalski@mail.com',
                 'hash' => 'e23nj44pak',
-                'status' => 1,
-                'created_at' => $this->date->date(),
-                'confirmed_at' => $this->date->date()
+                'confirmed_at' => null
             ],
             [
                 'recommender_id' => 3,
                 'e-mail' => 'mnowak@mail.com',
                 'hash' => 'x8iqo98n23',
                 'status' => 1,
-                'created_at' => $this->date->date(),
                 'confirmed_at' => $this->date->date()
             ]
         ];
