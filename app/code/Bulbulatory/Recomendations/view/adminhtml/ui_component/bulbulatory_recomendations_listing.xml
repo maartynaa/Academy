@@ -24,11 +24,19 @@
         </argument>
     </dataSource>
     <columns name="spinner_columns">
-        <column name="recommender_id">
+        <column name="recommendation_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">textRange</item>
-                    <item name="label" xsi:type="string" translate="true">Recommender id</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="recommender_id" class="Bulbulatory\Recomendations\Ui\Component\Listing\Column\RecommenderEmail">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" translate="true" xsi:type="string">Recommender Email</item>
                 </item>
             </argument>
         </column>
@@ -62,9 +70,14 @@
         </column>
         <column name="status">
             <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Bulbulatory\Recomendations\Ui\Component\Listing\Column\Status</item>
                 <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">textRange</item>
-                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="editor" xsi:type="string">select</item>
+                    <item name="label" translate="true" xsi:type="string">Status</item>
                 </item>
             </argument>
         </column>
