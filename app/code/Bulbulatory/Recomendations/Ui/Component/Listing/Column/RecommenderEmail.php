@@ -8,7 +8,7 @@ use \Magento\Customer\Api\CustomerRepositoryInterface;
 
 class RecommenderEmail extends Column
 {
-    protected $customerRepositoryInterface;
+    protected $_customerRepositoryInterface;
 
     public function __construct(
         CustomerRepositoryInterface $customerRepositoryInterface,
@@ -27,10 +27,14 @@ public function prepareDataSource(array $dataSource)
         foreach ($dataSource['data']['items'] as &$item) {
             if ($item['recommender_id']) {
                 $recommenderId = $item['recommender_id'];
-                $recommender = $this->_customerRepositoryInterface->getById($recommenderId);
-                $item['recommender_id'] = $recommender->getEmail();
+                try {
+                    $recommender = $this->_customerRepositoryInterface->getById($recommenderId);
+                    $item['recommender_email'] = $recommender->getEmail();
+                } catch (NoSuchEntityException $e) {
+                    $item['recommender_email'] = '';
+                }           
             } else {
-                $item['recommender_id'] = '';
+                $item['recommender_email'] = '';
             }
         }
     }

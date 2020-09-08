@@ -7,9 +7,9 @@ use Magento\Framework\DataObject\IdentityInterface;
 
 class Grid extends AbstractModel implements IdentityInterface
 {
-	const CACHE_TAG = 'bulbulatory_recomendations';
-	protected $_cacheTag = 'bulbulatory_recomendations';
-	protected $_eventPrefix = 'bulbulatory_recomendations';
+	const CACHE_TAG = 'bulbulatory_recomendations_recommendation';
+	protected $_cacheTag = 'bulbulatory_recomendations_recommendation';
+	protected $_eventPrefix = 'bulbulatory_recomendations_recommendation';
 
 	protected function _construct()
 	{
@@ -23,8 +23,6 @@ class Grid extends AbstractModel implements IdentityInterface
 
 	public function getDefaultValues()
 	{
-		$values = [];
-
-		return $values;
+		return [];
 	}
 }

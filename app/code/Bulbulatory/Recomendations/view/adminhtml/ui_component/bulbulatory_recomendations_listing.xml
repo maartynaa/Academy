@@ -32,7 +32,7 @@
                 </item>
             </argument>
         </column>
-        <column name="recommender_id" class="Bulbulatory\Recomendations\Ui\Component\Listing\Column\RecommenderEmail">
+        <column name="recommender_email" class="Bulbulatory\Recomendations\Ui\Component\Listing\Column\RecommenderEmail">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">select</item>
