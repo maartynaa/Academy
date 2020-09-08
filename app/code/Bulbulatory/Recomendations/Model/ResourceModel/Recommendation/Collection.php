@@ -1,6 +1,6 @@
 <?php
 
-namespace Bulbulatory\Recomendations\Model\ResourceModel\Grid;
+namespace Bulbulatory\Recomendations\Model\ResourceModel\Recommendation;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
@@ -13,8 +13,8 @@ class Collection extends AbstractCollection
 
 	protected function _construct()
 	{
-		$this->_init(Bulbulatory\Recomendations\Model\Grid::Class, 
-					 Bulbulatory\Recomendations\Model\ResourceModel\Grid::Class);
+		$this->_init(Bulbulatory\Recomendations\Model\Recommendation::Class, 
+					 Bulbulatory\Recomendations\Model\ResourceModel\Recommendation::Class);
 	}
 
 }

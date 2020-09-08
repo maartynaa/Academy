@@ -11,7 +11,7 @@
             title="Recommendations Grid" 
             module="Bulbulatory_Recomendations" 
             sortOrder="1" 
-            action="bulbulatory_recomendations/grid/index" 
+            action="bulbulatory_recomendations/recommendation/index" 
             resource="Bulbulatory_Recomendations::grid" 
             parent="Bulbulatory_Recomendations::recomendations"/>
     </menu>

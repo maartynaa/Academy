@@ -1,6 +1,6 @@
 <?php
 
-namespace Bulbulatory\Recomendations\Controller\Adminhtml\Grid;
+namespace Bulbulatory\Recomendations\Controller\Adminhtml\Recommendation;
 
 class Index extends \Magento\Backend\App\Action
 {
