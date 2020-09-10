@@ -23,11 +23,14 @@
             </argument>
         </argument>
     </dataSource>
+    <listingToolbar name="listing_top">
+        <filters name="listing_filters" />
+    </listingToolbar>
     <columns name="spinner_columns">
         <column name="recommendation_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
                     <item name="label" xsi:type="string" translate="true">ID</item>
                 </item>
             </argument>
@@ -35,12 +38,13 @@
         <column name="recommender_email" class="Bulbulatory\Recomendations\Ui\Component\Listing\Column\RecommenderEmail">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="dataType" xsi:type="string">text</item>
                     <item name="label" translate="true" xsi:type="string">Recommender Email</item>
                 </item>
             </argument>
         </column>
-        <column name="e-mail">
+        <column name="email">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -50,7 +54,7 @@
                             <item name="required-entry" xsi:type="boolean">true</item>
                         </item>
                     </item>
-                    <item name="label" xsi:type="string" translate="true">E-mail</item>
+                    <item name="label" xsi:type="string" translate="true">Email</item>
                 </item>
             </argument>
         </column>
@@ -72,7 +76,6 @@
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">Bulbulatory\Recomendations\Ui\Component\Listing\Column\Status</item>
                 <item name="config" xsi:type="array">
-                    <item name="sortOrder" xsi:type="number">10</item>
                     <item name="filter" xsi:type="string">select</item>
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
                     <item name="dataType" xsi:type="string">select</item>
