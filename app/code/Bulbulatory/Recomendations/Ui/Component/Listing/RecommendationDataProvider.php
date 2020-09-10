@@ -6,7 +6,7 @@ class RecommendationDataProvider extends \Magento\Framework\View\Element\UiCompo
 {
     protected function _initSelect()
     {
-        $this->addFilterToMap('recommender_email', 'secondTable.email');
+        $this->addFilterToMap('recommender_email', 'customer_table.email');
         $this->addFilterToMap('created_at', 'main_table.created_at');
         $this->addFilterToMap('email', 'main_table.email');
         
@@ -14,9 +14,9 @@ class RecommendationDataProvider extends \Magento\Framework\View\Element\UiCompo
 
         $this->getSelect()->joinLeft(
             [
-                'secondTable' => $this->getTable('customer_entity')
+                'customer_table' => $this->getTable('customer_entity')
             ], 
-            'main_table.recommender_id = secondTable.entity_id', 
+            'main_table.recommender_id = customer_table.entity_id', 
             [
                 'email as recommender_email'
             ]
