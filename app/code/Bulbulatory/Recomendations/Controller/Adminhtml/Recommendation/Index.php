@@ -14,6 +14,12 @@ class Index extends \Magento\Backend\App\Action
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
     }
+
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Bulbulatory_Recomendations::recommendation');
+    }
+
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
