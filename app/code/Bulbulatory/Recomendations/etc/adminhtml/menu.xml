@@ -7,12 +7,12 @@
              module="Bulbulatory_Recomendations"
              sortOrder="9999"
              resource="Bulbulatory_Recomendations::recomendations" />
-        <add id="Bulbulatory_Recomendations::grid" 
+        <add id="Bulbulatory_Recomendations::recommendation" 
             title="Recommendations Grid" 
             module="Bulbulatory_Recomendations" 
             sortOrder="1" 
             action="bulbulatory_recomendations/recommendation/index" 
-            resource="Bulbulatory_Recomendations::grid" 
+            resource="Bulbulatory_Recomendations::recommendation" 
             parent="Bulbulatory_Recomendations::recomendations"/>
     </menu>
 </config>
