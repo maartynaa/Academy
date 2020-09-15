@@ -46,7 +46,7 @@ class RecommendationRepository implements RecommendationRepositoryInterface
         if (! $recommendation->getId()) {
             throw new NoSuchEntityException(__('Unable to find recomendation with ID "%1"', $id));
         }
-        return $recomendation;
+        return $recommendation;
     }
     
     public function save(RecommendationInterface $recommendation)

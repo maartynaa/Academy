@@ -24,7 +24,7 @@ class Recommendation extends AbstractExtensibleModel implements RecommendationIn
 
 	protected function _construct()
 	{
-		$this->_init(Bulbulatory\Recomendations\Model\ResourceModel\Recommendation::Class);
+		$this->_init(ResourceModel\Recommendation::Class);
 	}
 
 	public function getId()
