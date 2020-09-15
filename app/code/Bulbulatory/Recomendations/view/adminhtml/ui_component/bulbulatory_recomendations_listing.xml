@@ -133,6 +133,11 @@
                 </item>
             </argument>
         </column>
+        <actionsColumn name="actions" class="Bulbulatory\Recomendations\Ui\Component\Listing\Column\Actions">
+            <settings>
+                <label translate="true">Actions</label>
+            </settings>
+        </actionsColumn>
     </columns>
 </listing>
 
