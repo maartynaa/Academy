@@ -7,10 +7,9 @@ use Bulbulatory\Recomendations\Api\Data\RecommendationInterface;
 
 class Recommendation extends AbstractExtensibleModel implements RecommendationInterface
 {
-	// const CACHE_TAG = 'bulbulatory_recomendations_recommendation';
-	// protected $_cacheTag = 'bulbulatory_recomendations_recommendation';
-	// protected $_eventPrefix = 'bulbulatory_recomendations_recommendation';
-
+	const CACHE_TAG = 'bulbulatory_recomendations_recommendation';
+	protected $_cacheTag = 'bulbulatory_recomendations_recommendation';
+	protected $_eventPrefix = 'bulbulatory_recomendations_recommendation';
 
 	const ID = 'recommendation_id';
     const RECOMMENDER_ID = 'recommender_id';
@@ -97,13 +96,13 @@ class Recommendation extends AbstractExtensibleModel implements RecommendationIn
 		$this->setData(self::CONFIRMATION_DATE, $confirmed_at);
 	}
 
-	// public function getIdentities()
-	// {
-	// 	return [self::CACHE_TAG . '_' . $this->getId()];
-	// }
+	public function getIdentities()
+	{
+		return [self::CACHE_TAG . '_' . $this->getId()];
+	}
 
-	// public function getDefaultValues()
-	// {
-	// 	return [];
-	// }
+	public function getDefaultValues()
+	{
+		return [];
+	}
 }

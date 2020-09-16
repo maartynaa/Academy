@@ -9,20 +9,20 @@ use Bulbulatory\Recomendations\Api\Data\RecommendationInterface;
 use Bulbulatory\Recomendations\Api\Data\RecommendationSearchResultInterface;
 use Bulbulatory\Recomendations\Api\Data\RecommendationSearchResultInterfaceFactory;
 use Bulbulatory\Recomendations\Api\RecommendationRepositoryInterface;
-use Bulbulatory\Recomendations\Model\ResourceModel\Recommendation\CollectionFactory as RecommendationCollectionFactory;
 use Bulbulatory\Recomendations\Model\ResourceModel\Recommendation\Collection;
+use Bulbulatory\Recomendations\Model\ResourceModel\Recommendation;
  
 class RecommendationRepository implements RecommendationRepositoryInterface
 {
     /**
+     * @var RecommendationResource
+     */
+    private $recommendationResource;
+    
+    /**
      * @var RecommendationFactory
      */
     private $recommendationFactory;
- 
-    /**
-     * @var RecommendationCollectionFactory
-     */
-    private $recommendationCollectionFactory;
  
     /**
      * @var RecommendationSearchResultInterfaceFactory
@@ -30,19 +30,19 @@ class RecommendationRepository implements RecommendationRepositoryInterface
     private $searchResultFactory;
  
     public function __construct(
+        Recommendation $recommendationResource,
         RecommendationFactory $recommendationFactory,
-        RecommendationCollectionFactory $recommendationCollectionFactory,
         RecommendationSearchResultInterfaceFactory $recommendationSearchResultInterfaceFactory
     ) {
+        $this->recommendationResource = $recommendationResource;
         $this->recommendationFactory = $recommendationFactory;
-        $this->recommendationCollectionFactory = $recommendationCollectionFactory;
         $this->searchResultFactory = $recommendationSearchResultInterfaceFactory;
     }
 
     public function getById($id)
     {
         $recommendation = $this->recommendationFactory->create();
-        $recommendation->getResource()->load($recommendation, $id);
+        $this->recommendationResource->load($recommendation, $id);
         if (! $recommendation->getId()) {
             throw new NoSuchEntityException(__('Unable to find recomendation with ID "%1"', $id));
         }
@@ -51,13 +51,13 @@ class RecommendationRepository implements RecommendationRepositoryInterface
     
     public function save(RecommendationInterface $recommendation)
     {
-        $recommendation->getResource()->save($recommendation);
+        $this->recommendationResource->save($recommendation);
         return $recommendation;
     }
     
     public function delete(RecommendationInterface $recommendation)
     {
-        $recommendation->getResource()->delete($recommendation);
+        $this->recommendationResource->delete($recommendation);
     }
 
     public function getList(SearchCriteriaInterface $searchCriteria)

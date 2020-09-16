@@ -7,6 +7,7 @@ use Magento\Ui\Component\MassAction\Filter;
 use Magento\Framework\Controller\ResultFactory;
 use Bulbulatory\Recomendations\Model\ResourceModel\Recommendation\CollectionFactory;
 use Bulbulatory\Recomendations\Api\RecommendationRepositoryInterface;
+use Psr\Log\LoggerInterface;
 
 
 class MassDelete extends \Magento\Backend\App\Action 
@@ -14,16 +15,19 @@ class MassDelete extends \Magento\Backend\App\Action
     protected $_filter;
     protected $_collectionFactory;
     protected $_recommendationRepository; 
+    private $logger;
    
     public function __construct(
         Context $context,
         Filter $filter,
         CollectionFactory $collectionFactory,
-        RecommendationRepositoryInterface $recommendationRepository
+        RecommendationRepositoryInterface $recommendationRepository,
+        LoggerInterface $logger
    ) {
         $this->_filter = $filter;
         $this->_collectionFactory = $collectionFactory;
         $this->_recommendationRepository = $recommendationRepository;
+        $this->logger = $logger;
         parent::__construct($context);
    }
 
@@ -40,8 +44,9 @@ class MassDelete extends \Magento\Backend\App\Action
                 $recommendation = $this->_recommendationRepository->getById($id);
                 $this->_recommendationRepository->delete($recommendation);
                 $recommendationDeleted++;
-            } catch (LocalizedException $exception) {
-                $this->messageManager->addErrorMessage(__('Cannot delete all selected recommendations.'));
+            } catch (NoSuchEntityException $exception) {
+                $this->messageManager->addErrorMessage(__('Cannot delete recommendation with ID %1.', $id));
+                $this->logger->critical('Error message', ['exception' => $exception]);
             }
         }
 
