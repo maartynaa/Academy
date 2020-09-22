@@ -25,8 +25,37 @@
     </dataSource>
     <listingToolbar name="listing_top">
         <filters name="listing_filters" />
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="bulbulatory_recomendations/recommendation/massDelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete items</item>
+                            <item name="message" xsi:type="string" translate="true">Delete selected items?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
     </listingToolbar>
     <columns name="spinner_columns">
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">recommendation_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
         <column name="recommendation_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -104,6 +133,11 @@
                 </item>
             </argument>
         </column>
+        <actionsColumn name="actions" class="Bulbulatory\Recomendations\Ui\Component\Listing\Column\Actions">
+            <settings>
+                <label translate="true">Actions</label>
+            </settings>
+        </actionsColumn>
     </columns>
 </listing>
 
