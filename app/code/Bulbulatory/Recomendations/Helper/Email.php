@@ -26,13 +26,12 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
         $this->logger = $context->getLogger();
     }
 
-    public function sendEmail()
+    public function sendEmail($email, $url)
     {
 
         $templateId = 'recommendation_email_template';
-        $fromEmail = 'admin@bulbulatory.com';  
+        $fromEmail = 'no-reply@bulbulatory.recomendations.com';  
         $fromName = 'Admin';
-        $toEmail = 'mac.martyna@poczta.onet.pl';
  
         try {
             $this->inlineTranslation->suspend();
@@ -41,7 +40,7 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
                 'email' => $this->escaper->escapeHtml($fromEmail),
             ];
             $templateVars = [
-                'templateVar' => 'test',
+                'url' => $url,
             ]; 
 
             $templateOptions = [
@@ -54,7 +53,7 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
                 ->setTemplateOptions($templateOptions)
                 ->setTemplateVars($templateVars)
                 ->setFrom($sender)
-                ->addTo($toEmail)
+                ->addTo($email)
                 ->getTransport();
             $transport->sendMessage();
             $this->inlineTranslation->resume();
