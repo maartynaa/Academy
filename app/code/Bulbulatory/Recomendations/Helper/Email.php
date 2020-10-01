@@ -1,6 +1,7 @@
 <?php
 namespace Bulbulatory\Recomendations\Helper;
 
+use Magento\Framework\UrlInterface;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Translate\Inline\StateInterface;
 use Magento\Framework\Escaper;
@@ -11,22 +12,25 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
     protected $inlineTranslation;
     protected $escaper;
     protected $transportBuilder;
+    protected $urlInterface;
     protected $logger;
 
     public function __construct(
         Context $context,
         StateInterface $inlineTranslation,
         Escaper $escaper,
-        TransportBuilder $transportBuilder
+        TransportBuilder $transportBuilder,
+        UrlInterface $urlInterface
     ) {
         parent::__construct($context);
         $this->inlineTranslation = $inlineTranslation;
         $this->escaper = $escaper;
         $this->transportBuilder = $transportBuilder;
+        $this->urlInterface = $urlInterface;
         $this->logger = $context->getLogger();
     }
 
-    public function sendEmail($email, $url)
+    public function sendEmail($email, $hash)
     {
 
         $templateId = 'recommendation_email_template';
@@ -40,7 +44,7 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
                 'email' => $this->escaper->escapeHtml($fromEmail),
             ];
             $templateVars = [
-                'url' => $url,
+                'url' => $this->urlInterface->getUrl('recomendations/customer/confirm',['hash' => $hash])
             ]; 
 
             $templateOptions = [

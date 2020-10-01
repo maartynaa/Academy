@@ -1,7 +1,6 @@
 <?php
 namespace Bulbulatory\Recomendations\Controller\Customer;
 
-use Magento\Framework\UrlInterface;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Stdlib\DateTime\DateTime;
@@ -21,7 +20,6 @@ class Post extends \Magento\Framework\App\Action\Action
     protected $recommendation;
     protected $date;
     protected $random;
-    protected $urlInterface;
      
     public function __construct(
         Context $context,
@@ -31,8 +29,7 @@ class Post extends \Magento\Framework\App\Action\Action
         Session $customer,
         RecommendationInterface $recommendation,
         DateTime $date,
-        Random $random,
-        UrlInterface $urlInterface
+        Random $random
         )
     {
         $this->_logLoggerInterface = $loggerInterface;
@@ -42,7 +39,6 @@ class Post extends \Magento\Framework\App\Action\Action
         $this->recommendation = $recommendation;
         $this->date = $date;
         $this->random = $random;
-        $this->urlInterface = $urlInterface;
         $this->messageManager = $context->getMessageManager();
         parent::__construct($context);
  
@@ -64,12 +60,6 @@ class Post extends \Magento\Framework\App\Action\Action
         $recommendation->setStatus(0);
         $recommendation->setCreatedAt($date);
 
-        $url = $this->urlInterface->getUrl(
-            'http://bulbulatory.test/recomendations/customer/confirm',
-            [
-                'hash' => $hash
-            ]
-        );
 
         try {
             $this->recommendationRepository->save($recommendation);
@@ -81,7 +71,7 @@ class Post extends \Magento\Framework\App\Action\Action
 
         try
         {
-            $this->helperEmail->sendEmail($email, $url);
+            $this->helperEmail->sendEmail($email, $hash);
             $this->messageManager->addSuccess('Email sent successfully');
             $this->_redirect('customer/account');
                  
