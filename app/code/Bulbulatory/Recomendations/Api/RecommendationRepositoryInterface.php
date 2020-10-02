@@ -32,6 +32,20 @@ interface RecommendationRepositoryInterface
      * @return void
      */
     public function delete(RecommendationInterface $recommendation);
+
+    /**
+     * @param \Bulbulatory\Recomendations\Api\Data\RecommendationInterface $recommendation
+     * @return \Bulbulatory\Recomendations\Api\Data\RecommendationInterface
+     */
+    public function confirm(RecommendationInterface $recommendation);
+
+    /**
+     * @param $customerId
+     * @param $email
+     * @param $hash
+     * @return \Bulbulatory\Recomendations\Api\Data\RecommendationInterface
+     */
+    public function create($customerId, $email, $hash); 
  
     /**
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria

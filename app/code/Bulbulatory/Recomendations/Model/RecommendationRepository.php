@@ -1,7 +1,8 @@
 <?php
  
 namespace Bulbulatory\Recomendations\Model;
- 
+
+use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -28,15 +29,22 @@ class RecommendationRepository implements RecommendationRepositoryInterface
      * @var RecommendationSearchResultInterfaceFactory
      */
     private $searchResultFactory;
+
+    protected $date;
+    protected $recommendation;
  
     public function __construct(
         Recommendation $recommendationResource,
         RecommendationFactory $recommendationFactory,
-        RecommendationSearchResultInterfaceFactory $recommendationSearchResultInterfaceFactory
+        RecommendationSearchResultInterfaceFactory $recommendationSearchResultInterfaceFactory,
+        DateTime $date,
+        RecommendationInterface $recommendation
     ) {
         $this->recommendationResource = $recommendationResource;
         $this->recommendationFactory = $recommendationFactory;
         $this->searchResultFactory = $recommendationSearchResultInterfaceFactory;
+        $this->date = $date;
+        $this->recommendation = $recommendation;
     }
 
     public function getById($id)
@@ -69,6 +77,25 @@ class RecommendationRepository implements RecommendationRepositoryInterface
     {
         $this->recommendationResource->delete($recommendation);
     }
+
+    public function confirm(RecommendationInterface $recommendation)
+    {
+        $recommendation->setStatus(1);
+		$date = $this->date->gmtDate();
+		$recommendation->setConfirmedAt($date);
+        $this->recommendationResource->save($recommendation);
+        return $recommendation;
+    }
+
+    public function create($customerId, $email,$hash)
+    {      
+        $recommendation = $this->recommendation;
+        $recommendation->setRecommenderId($customerId);
+        $recommendation->setEmail($email);
+        $recommendation->setHash($hash);
+        $this->recommendationResource->save($recommendation);
+        return $recommendation;
+    }    
 
     public function getList(SearchCriteriaInterface $searchCriteria)
     {

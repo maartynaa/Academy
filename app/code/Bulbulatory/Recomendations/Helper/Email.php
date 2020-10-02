@@ -36,33 +36,29 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
         $templateId = 'recommendation_email_template';
         $fromEmail = 'no-reply@bulbulatory.recomendations.com';  
         $fromName = 'Admin';
- 
-        try {
-            $this->inlineTranslation->suspend();
-            $sender = [
-                'name' => $this->escaper->escapeHtml($fromName),
-                'email' => $this->escaper->escapeHtml($fromEmail),
-            ];
-            $templateVars = [
-                'url' => $this->urlInterface->getUrl('recomendations/customer/confirm',['hash' => $hash])
-            ]; 
 
-            $templateOptions = [
-                'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
-                'store' => \Magento\Store\Model\Store::DEFAULT_STORE_ID,
-            ];
+        $this->inlineTranslation->suspend();
+        $sender = [
+            'name' => $this->escaper->escapeHtml($fromName),
+            'email' => $this->escaper->escapeHtml($fromEmail),
+        ];
+        $templateVars = [
+            'url' => $this->urlInterface->getUrl('recomendations/customer/confirm',['hash' => $hash])
+        ]; 
 
-            $transport = $this->transportBuilder
-                ->setTemplateIdentifier($templateId)
-                ->setTemplateOptions($templateOptions)
-                ->setTemplateVars($templateVars)
-                ->setFrom($sender)
-                ->addTo($email)
-                ->getTransport();
-            $transport->sendMessage();
-            $this->inlineTranslation->resume();
-        } catch (\Exception $e) {
-            $this->_logger->error($e->getMessage());
-        }
+        $templateOptions = [
+            'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
+            'store' => \Magento\Store\Model\Store::DEFAULT_STORE_ID,
+        ];
+
+        $transport = $this->transportBuilder
+            ->setTemplateIdentifier($templateId)
+            ->setTemplateOptions($templateOptions)
+            ->setTemplateVars($templateVars)
+            ->setFrom($sender)
+            ->addTo($email)
+            ->getTransport();
+        $transport->sendMessage();
+        $this->inlineTranslation->resume();
     }
 }
