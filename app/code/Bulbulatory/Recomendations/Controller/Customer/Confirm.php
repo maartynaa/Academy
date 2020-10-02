@@ -23,9 +23,9 @@ class Confirm extends \Magento\Framework\App\Action\Action
 	public function execute()
 	{
 		$hash = $this->getRequest()->getParam('hash');
-		$recommendation = $this->recommendationRepository->getByHash($hash);
 
 		try {
+			$recommendation = $this->recommendationRepository->getByHash($hash);
             $this->recommendationRepository->confirm($recommendation);
 			$this->messageManager->addSuccessMessage(__('Recommendation confirmed successfully.'));
 			$this->_redirect('/');

@@ -23,6 +23,9 @@ class Index extends \Magento\Framework\App\Action\Action
 		if ($enable){
 			return $this->_pageFactory->create();
 		}
+		else {
+			$this->_redirect('/');
+		}
 		
 	}
 }
