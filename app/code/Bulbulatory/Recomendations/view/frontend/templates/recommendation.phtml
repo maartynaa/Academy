@@ -1,0 +1,20 @@
+<?php 
+?>
+<h4>Wyślij polecenie</h4>
+
+<form action="<?php echo $block->getBaseUrl().'/recomendations/customer/post/';?>" method="post">
+    <fieldset class="fieldset">
+            <div class="field email required">
+                <label class="label" for="email"><span><?php  echo __('Email') ?></span></label>
+                <div class="control">
+                    <input name="email" id="email" title="<?php echo __('Email') ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+                </div>
+            </div>                        
+    </fieldset>
+    <div class="primary">
+        <button type="submit" title="<?php echo __('Wyślij') ?>" class="action submit primary">
+            <span><?php echo __('Wyślij') ?></span>
+        </button>
+    </div>
+
+</form>
