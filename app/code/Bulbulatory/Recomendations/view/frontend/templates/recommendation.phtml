@@ -16,5 +16,43 @@
             <span><?php echo __('Wyślij') ?></span>
         </button>
     </div>
-
 </form>
+
+<br></br>
+
+<?php $recommendations = $this->getRecommendationCollection();?>
+<?php if ($this->getPagerHtml()): ?>
+    <div class="order-products-toolbar toolbar bottom"><?php echo $this->getPagerHtml(); ?></div>
+<?php endif ?>
+
+<?php if ($recommendations && count($recommendations)): ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?php echo __('Recommendation Table') ?></caption>
+            <thead>
+            <tr>
+                <th scope="col" class="col recommendation_id"><?php echo __('ID') ?></th>
+                <th scope="col" class="col email"><?php echo __('Email') ?></th>
+                <th scope="col" class="col created_at"><?php echo __('Created At') ?></th>
+                <th scope="col" class="col status"><?php echo __('Status') ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($recommendations as $recommendation): ?>
+                <tr>
+                    <td data-th="ID" class="col recommendation_id"><?php echo $recommendation->getId(); ?></td>
+                    <td data-th="Email" class="col email"><?php echo $recommendation->getEmail(); ?></td>
+                    <td data-th="Created At" class="col created_at"><?php echo $recommendation->getCreatedAt(); ?></td>
+                    <td data-th="Status" class="col status"><?php echo $recommendation->getStatus(); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($this->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom custom-page"><?php echo $this->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?php echo __('No any record.'); ?></span></div>
+<?php endif ?>
