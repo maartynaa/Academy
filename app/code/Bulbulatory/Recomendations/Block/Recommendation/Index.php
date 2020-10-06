@@ -29,6 +29,11 @@ class Index extends Template {
  
     }
 
+    public function getFormAction()
+    {
+        return '/recomendations/customer/post';
+    }
+
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -66,8 +71,17 @@ class Index extends Template {
         return $collection;
     } 
 
-    public function getFormAction()
+    public function getConfirmRecommendationCollection()
     {
-        return '/recomendations/customer/post';
-    }
+        $collection = $this->getRecommendationCollection();
+        $collection->addFieldToFilter('status', 1);
+        return $collection->getSize();
+    } 
+
+    public function calculateDiscount()
+    {
+        $confirmRecommendation = $this->getConfirmRecommendationCollection();
+        $discount = 5 * floor($confirmRecommendation/10);
+        return $discount;
+    } 
 }

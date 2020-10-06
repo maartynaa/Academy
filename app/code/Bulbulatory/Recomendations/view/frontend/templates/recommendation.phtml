@@ -21,6 +21,18 @@
 <br></br>
 
 <?php $recommendations = $this->getRecommendationCollection();?>
+<div>
+<p><?php echo __('Ilość wysłanych poleceń: ') ?><?php echo $recommendations->getSize(); ?></p>
+</div>
+<div>
+<p><?php echo __('Ilość poterdzonych poleceń: ') ?><?php echo $this->getConfirmRecommendationCollection(); ?></p>
+</div>
+<div>
+<p><?php echo __('Zniżka: ') ?><?php echo $this->calculateDiscount() ?><?php echo __('%') ?></p>
+</div>
+
+<br></br>
+
 <?php if ($this->getPagerHtml()): ?>
     <div class="order-products-toolbar toolbar bottom"><?php echo $this->getPagerHtml(); ?></div>
 <?php endif ?>
@@ -28,13 +40,13 @@
 <?php if ($recommendations && count($recommendations)): ?>
     <div class="table-wrapper orders-history">
         <table class="data table table-order-items history" id="my-orders-table">
-            <caption class="table-caption"><?php echo __('Recommendation Table') ?></caption>
+            <caption class="table-caption">Recommendation Table</caption>
             <thead>
             <tr>
-                <th scope="col" class="col recommendation_id"><?php echo __('ID') ?></th>
-                <th scope="col" class="col email"><?php echo __('Email') ?></th>
-                <th scope="col" class="col created_at"><?php echo __('Created At') ?></th>
-                <th scope="col" class="col status"><?php echo __('Status') ?></th>
+                <th scope="col" class="col recommendation_id">ID</th>
+                <th scope="col" class="col email">Email</th>
+                <th scope="col" class="col created_at">Created At</th>
+                <th scope="col" class="col status">Status</th>
             </tr>
             </thead>
             <tbody>
