@@ -78,10 +78,22 @@ class Index extends Template {
         return $collection->getSize();
     } 
 
-    public function calculateDiscount()
+    public function calculateDiscountPercent()
     {
         $confirmRecommendation = $this->getConfirmRecommendationCollection();
         $discount = 5 * floor($confirmRecommendation/10);
         return $discount;
-    } 
+    }
+    
+    public function getStatusName(bool $status)
+    {
+        if ($status == 0)
+        {
+            return "Niepotwierdzony";
+        }
+        else 
+        {
+            return "Potwierdzony";
+        }
+    }
 }

@@ -2,6 +2,6 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="customer_account"/>
     <referenceContainer name="content">
-        <block class="Bulbulatory\Recomendations\Block\Recommendation\Index" name="recomendations_customer_index" template="Bulbulatory_Recomendations::recommendation.phtml"/>
+        <block class="Bulbulatory\Recomendations\Block\Recommendation\Index" name="recomendations_customer_index" template="Bulbulatory_Recomendations::recommendation.phtml" cacheable="false"/>
     </referenceContainer>
 </page>

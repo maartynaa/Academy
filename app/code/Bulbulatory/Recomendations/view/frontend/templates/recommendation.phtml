@@ -28,7 +28,7 @@
 <p><?php echo __('Ilość poterdzonych poleceń: ') ?><?php echo $this->getConfirmRecommendationCollection(); ?></p>
 </div>
 <div>
-<p><?php echo __('Zniżka: ') ?><?php echo $this->calculateDiscount() ?><?php echo __('%') ?></p>
+<p><?php echo __('Zniżka: ') ?><?php echo $this->calculateDiscountPercent() ?><?php echo __('%') ?></p>
 </div>
 
 <br></br>
@@ -56,7 +56,7 @@
                     <td data-th="ID" class="col recommendation_id"><?php echo $recommendation->getId(); ?></td>
                     <td data-th="Email" class="col email"><?php echo $recommendation->getEmail(); ?></td>
                     <td data-th="Created At" class="col created_at"><?php echo $recommendation->getCreatedAt(); ?></td>
-                    <td data-th="Status" class="col status"><?php echo $recommendation->getStatus(); ?></td>
+                    <td data-th="Status" class="col status"><?php echo $this->getStatusName($recommendation->getStatus()); ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
