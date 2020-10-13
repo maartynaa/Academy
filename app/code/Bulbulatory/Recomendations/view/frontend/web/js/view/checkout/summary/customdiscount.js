@@ -15,7 +15,9 @@ define(
                 return true;
             },
             getCustomDiscount : function(){
-                return this.getFormattedPrice(totals.getSegment('customer_discount').value);
+
+                var price = totals.getSegment('customer_discount').value;
+                return this.getFormattedPrice(price);
             }
         });
     }

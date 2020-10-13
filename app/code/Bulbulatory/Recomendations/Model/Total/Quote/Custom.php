@@ -27,16 +27,27 @@ class Custom extends AbstractTotal
        Total $total
    )
    {
-       parent::collect($quote, $shippingAssignment, $total);
+        parent::collect($quote, $shippingAssignment, $total);
 
-           $percent = $this->index->calculateDiscountPercent();
-           $baseDiscount = $total->getSubtotal() * $percent / 100;
+        $percent = $this->index->calculateDiscountPercent();
+        $baseDiscount = $total->getSubtotal() * $percent / 100;
 
-           $discount =  $this->_priceCurrency->convert($baseDiscount);
-           $total->addTotalAmount('customdiscount', -$discount);
-           $total->addBaseTotalAmount('customdiscount', -$baseDiscount);
-           $total->setBaseGrandTotal($total->getBaseGrandTotal() - $baseDiscount);
-           $quote->setCustomDiscount(-$discount);
-       return $this;
-   }
+        $discount =  $this->_priceCurrency->convert($baseDiscount);
+        $total->addTotalAmount('customdiscount', -$discount);
+        $total->addBaseTotalAmount('customdiscount', -$baseDiscount);
+        $total->setBaseGrandTotal($total->getBaseGrandTotal() - $baseDiscount);
+        $quote->setCustomDiscount(-$discount);
+        return $this;
+    }
+
+    public function fetch(Quote $quote, Total $total) 
+    {
+        $percent = $this->index->calculateDiscountPercent();
+        $discount = $total->getSubtotal() * $percent / 100;
+        return [
+            'code' => $this->getCode(),
+            'title' => $this->getLabel(),
+            'value' => -$discount  
+        ];
+  	  }
 }
