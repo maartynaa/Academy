@@ -14,13 +14,16 @@ define(
             totals: quote.getTotals(),
 
             isDisplayedCustomdiscount : function(){
+
+                if (totals.getSegment('customer_discount') == null){
+                    return false;
+                }
                 return true;
+                
             },
             getCustomDiscount : function(){
 
-                console.log(totals);
-
-                var price = totals.getSegment('customer_discount').value;
+                var price = totals.getSegment('customer_discount').value;                
                 return this.getFormattedPrice(price);
             }
         });

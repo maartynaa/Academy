@@ -8,7 +8,7 @@ use Magento\Quote\Api\Data\ShippingAssignmentInterface;
 use Magento\Quote\Model\Quote\Address\Total;
 use Bulbulatory\Recomendations\Block\Recommendation\Index;
 
-class Custom extends AbstractTotal
+class RecommendationDiscount extends AbstractTotal
 {
    protected $_priceCurrency;
    protected $index;
@@ -30,24 +30,34 @@ class Custom extends AbstractTotal
         parent::collect($quote, $shippingAssignment, $total);
 
         $percent = $this->index->calculateDiscountPercent();
-        $baseDiscount = $total->getSubtotal() * $percent / 100;
 
-        $discount =  $this->_priceCurrency->convert($baseDiscount);
-        $total->addTotalAmount('customdiscount', -$discount);
-        $total->addBaseTotalAmount('customdiscount', -$baseDiscount);
-        $total->setBaseGrandTotal($total->getBaseGrandTotal() - $baseDiscount);
-        $quote->setCustomDiscount(-$discount);
+        if ($percent > 0) {
+            $baseDiscount = $total->getSubtotal() * $percent / 100;
+
+            $discount =  $this->_priceCurrency->convert($baseDiscount);
+            $total->addTotalAmount('recommendation_discount', -$discount);
+            $total->addBaseTotalAmount('recommendation_discount', -$baseDiscount);
+            $total->setBaseGrandTotal($total->getBaseGrandTotal() - $baseDiscount);
+            $quote->setRecommendationDiscount(-$discount);
+        }
+        
         return $this;
     }
 
     public function fetch(Quote $quote, Total $total) 
     {
         $percent = $this->index->calculateDiscountPercent();
-        $discount = $total->getSubtotal() * $percent / 100;
-        return [
-            'code' => $this->getCode(),
-            'title' => $this->getLabel(),
-            'value' => -$discount  
-        ];
+
+        if($percent > 0) {
+            $discount = $total->getSubtotal() * $percent / 100;
+            return [
+                'code' => $this->getCode(),
+                'title' => $this->getLabel(),
+                'value' => -$discount  
+            ];
+        }
+
+        return null;
+        
   	  }
 }
